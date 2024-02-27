@@ -1,0 +1,106 @@
+[
+    {
+        "id": "f2be70d7da78eab9",
+        "type": "tab",
+        "label": "Soundscripter_bot",
+        "disabled": false,
+        "info": "creates trascripts for audio files",
+        "env": []
+    },
+    {
+        "id": "999de72df804523e",
+        "type": "group",
+        "z": "f2be70d7da78eab9",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "a4967866e3144196",
+            "e4ecd737b84156b4",
+            "9402cccd442dade0"
+        ],
+        "x": 154,
+        "y": 219,
+        "w": 672,
+        "h": 82
+    },
+    {
+        "id": "a4967866e3144196",
+        "type": "inject",
+        "z": "f2be70d7da78eab9",
+        "g": "999de72df804523e",
+        "name": "request",
+        "props": [
+            {
+                "p": "payload.file",
+                "v": "/data/sample-3.mp3",
+                "vt": "str"
+            },
+            {
+                "p": "payload.model",
+                "v": "whisper-1",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 250,
+        "y": 260,
+        "wires": [
+            [
+                "e4ecd737b84156b4"
+            ]
+        ]
+    },
+    {
+        "id": "e4ecd737b84156b4",
+        "type": "OpenAI API",
+        "z": "f2be70d7da78eab9",
+        "g": "999de72df804523e",
+        "name": "Create Translation",
+        "service": "b1d19b567e63b5ad",
+        "method": "createTranslation",
+        "x": 450,
+        "y": 260,
+        "wires": [
+            [
+                "9402cccd442dade0"
+            ]
+        ]
+    },
+    {
+        "id": "9402cccd442dade0",
+        "type": "file",
+        "z": "f2be70d7da78eab9",
+        "g": "999de72df804523e",
+        "name": "give the name for the file",
+        "filename": "/data/unknownspeech",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 690,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b1d19b567e63b5ad",
+        "type": "Service Host",
+        "apiBase": "https://api.openai.com/v1",
+        "secureApiKeyHeaderOrQueryName": "Authorization",
+        "organizationId": "org-d5btHnKvSfYoUR4E9JfSo12k",
+        "name": "personal"
+    }
+]
